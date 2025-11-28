@@ -1,7 +1,7 @@
 # 🎓 Portfólio de Projetos — Fatec Jacareí
 
 ### 👤 **Aluno:** *Vinicius Barbosa Fernandes*  
-### 💻 **Curso:** Desenvolvimento de Software Multiplataforma  
+### 💻 **Curso:** Desenvolvimento de Software em Multiplataforma  
 ### 🧩 **Turma:** 2º Semestre — 2023
 
 ---
