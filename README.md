@@ -9,3 +9,7 @@
 ## 🚀 Meu Portfólio
 
 👉 **[Acessar Portfólio](https://fatec-jacarei-dsm-portfolio.github.io/ra2581392323032/)**
+
+## 🚀 Video de Apresentação do Portifolio
+
+👉 **[Acessar video do Portfólio](https://www.youtube.com/watch?v=EsQmRigaa-8)**
