@@ -1,2 +1,5 @@
-# ra2581392323032
-Repositório do aluno VINICIUS BARBOSA FERNANDES.
+# Portfólio de Projetos - Fatec Jacareí
+<h2>Aluno: Vinicius Barbosa Fernandes</h2>
+<h2>Curso: Desenvolvimento de Software Multiplataforma</h2>
+<h2>Turma: 2º. Semestre de 2023</h2>
+
