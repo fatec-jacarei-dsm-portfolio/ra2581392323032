@@ -627,90 +627,237 @@
     .work-card {
       display: grid;
       grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
-      align-items: stretch;
-      gap: 28px;
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-      box-shadow: var(--shadow);
-      padding: 26px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 88% 0%, rgba(139, 92, 246, 0.1), transparent 30rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
+        var(--card);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.28);
       transition: transform 180ms ease, border-color 180ms ease;
     }
 
-    .work-card > * {
+    .athlon-intro {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 28px;
+    }
+
+    .athlon-copy {
       min-width: 0;
     }
 
-    .work-card > div:first-child {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    .athlon-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 11px;
+      border: 1px solid rgba(251, 146, 60, 0.28);
+      border-radius: 999px;
+      background: rgba(251, 146, 60, 0.08);
+      padding: 6px 10px;
+      color: #fdba74;
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .athlon-kicker::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 12px rgba(251, 146, 60, 0.75);
     }
 
     .work-card h3 {
-      font-size: 1.28rem;
-      line-height: 1.25;
+      max-width: 460px;
+      font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+      line-height: 1.18;
     }
 
     .work-card p {
-      margin-top: 11px;
+      max-width: 520px;
+      margin-top: 12px;
       color: var(--muted);
+      font-size: 0.94rem;
     }
 
-    .work-card .project-link {
-      display: inline-flex;
-      align-items: center;
+    .athlon-copy .chips {
+      margin-top: 16px;
+    }
+
+    .athlon-cta {
       margin-top: 22px;
-      border: 1px solid rgba(147, 197, 253, 0.22);
-      border-radius: 10px;
-      background: rgba(147, 197, 253, 0.07);
-      padding: 10px 14px;
-      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      white-space: nowrap;
     }
 
-    .work-card .project-link:hover {
-      transform: translateY(-2px);
-      border-color: rgba(40, 212, 199, 0.42);
-      background: rgba(40, 212, 199, 0.09);
+    .athlon-cta span {
+      font-size: 1.03rem;
     }
 
-    .gallery {
+    .athlon-gallery {
       display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(170px, 0.65fr);
+      min-width: 0;
+      height: 410px;
+      grid-template-columns: minmax(0, 1.42fr) minmax(150px, 0.58fr);
       grid-template-rows: repeat(2, minmax(0, 1fr));
       gap: 12px;
-      min-height: 390px;
-      overflow: hidden;
-      border-radius: 14px;
+      padding: 14px;
     }
 
-    .gallery img {
-      width: 100%;
-      height: 100%;
+    .athlon-shot {
       min-width: 0;
       min-height: 0;
-      object-fit: cover;
-      object-position: top center;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      background: #050914;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 13px;
+      background: #02050d;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.24);
       transition: transform 180ms ease, border-color 180ms ease;
     }
 
-    .gallery img:first-child {
-      grid-row: 1 / -1;
+    .athlon-shot:hover {
+      transform: translateY(-2px);
+      border-color: rgba(40, 212, 199, 0.3);
     }
 
-    .gallery img:nth-child(3) {
+    .athlon-shot--home {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+
+    .athlon-shot--panel {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .athlon-shot--mobile {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .athlon-shot-link {
+      display: flex;
+      height: 100%;
+      min-height: 0;
+      flex-direction: column;
+      color: inherit;
+    }
+
+    .athlon-shot-bar {
+      display: flex;
+      min-height: 34px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 18, 31, 0.96);
+      padding: 0 10px;
+      color: #b9c4d7;
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+
+    .athlon-window-dots {
+      display: inline-flex;
+      gap: 4px;
+    }
+
+    .athlon-window-dots i {
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .athlon-window-dots i:first-child {
+      background: #fb7185;
+    }
+
+    .athlon-window-dots i:nth-child(2) {
+      background: #fbbf24;
+    }
+
+    .athlon-window-dots i:nth-child(3) {
+      background: #34d399;
+    }
+
+    .athlon-shot-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .athlon-shot-hint {
+      color: #7dd3fc;
+      font-size: 0.62rem;
+      white-space: nowrap;
+    }
+
+    .athlon-shot--panel .athlon-shot-hint,
+    .athlon-shot--mobile .athlon-shot-hint {
+      display: none;
+    }
+
+    .athlon-shot-canvas {
+      display: grid;
+      min-height: 0;
+      flex: 1;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(79, 124, 255, 0.08), transparent 28rem),
+        #02050d;
+    }
+
+    .athlon-shot--home img,
+    .athlon-shot--panel img {
+      display: block;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-      padding: 8px;
+      object-position: center;
     }
 
-    .gallery img:hover {
-      transform: scale(1.012);
-      border-color: rgba(40, 212, 199, 0.34);
+    .athlon-phone-stage {
+      display: grid;
+      width: 100%;
+      height: 100%;
+      place-items: center;
+      padding: 8px;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(139, 92, 246, 0.17), transparent 13rem),
+        linear-gradient(180deg, #080b16, #02050d);
+    }
+
+    .athlon-phone {
+      width: min(88px, 68%);
+      max-height: 150px;
+      overflow: hidden;
+      border: 4px solid #151a27;
+      border-radius: 16px;
+      background: #02050d;
+      box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.42),
+        0 0 0 1px rgba(255, 255, 255, 0.07);
+    }
+
+    .athlon-phone img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 142px;
+      object-fit: cover;
+      object-position: top center;
     }
 
     .contact-grid {
@@ -811,7 +958,6 @@
 
       .hero-grid,
       .about-grid,
-      .work-card,
       .contact-grid {
         grid-template-columns: 1fr;
       }
@@ -820,8 +966,17 @@
         max-width: 560px;
       }
 
-      .gallery {
-        min-height: 430px;
+      .work-card {
+        grid-template-columns: 1fr;
+      }
+
+      .athlon-intro {
+        border-right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      }
+
+      .athlon-gallery {
+        height: 430px;
       }
 
       .projects {
@@ -907,26 +1062,58 @@
       }
 
       .work-card {
-        gap: 22px;
-        padding: 18px;
+        border-radius: 16px;
       }
 
-      .gallery {
-        grid-template-columns: 1fr;
-        grid-template-rows: none;
-        min-height: 0;
-        overflow: visible;
+      .athlon-intro {
+        padding: 22px 18px;
       }
 
-      .gallery img,
-      .gallery img:first-child {
-        grid-row: auto;
+      .athlon-cta {
+        width: 100%;
+      }
+
+      .athlon-gallery {
         height: auto;
-        aspect-ratio: 16 / 10;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: auto 150px;
+        gap: 10px;
+        padding: 10px;
       }
 
-      .gallery img:nth-child(3) {
-        object-fit: contain;
+      .athlon-shot--home {
+        grid-column: 1 / 3;
+        grid-row: 1;
+        aspect-ratio: 3 / 2;
+      }
+
+      .athlon-shot--panel {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .athlon-shot--mobile {
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      .athlon-shot-bar {
+        min-height: 30px;
+        padding: 0 8px;
+      }
+
+      .athlon-shot-hint,
+      .athlon-window-dots {
+        display: none;
+      }
+
+      .athlon-phone {
+        width: min(76px, 72%);
+        max-height: 112px;
+      }
+
+      .athlon-phone img {
+        max-height: 104px;
       }
 
       footer .wrap {
@@ -1235,28 +1422,69 @@
           <p>Um produto ainda em evolução para produção, que me trouxe contato com uma demanda fora do ambiente acadêmico.</p>
         </div>
 
-        <article class="work-card reveal">
-          <div>
-            <h3>Plataforma web para atletas de endurance</h3>
-            <p>
-              Participei do desenvolvimento do MVP do AthlonAI, uma plataforma voltada a atletas de
-              endurance. O professor Alvaro trouxe a arquitetura, coordenação e orientação do produto;
-              minha atuação foi na implementação da interface e nos ajustes técnicos necessários para
-              validar a primeira versão.
-            </p>
-            <div class="chips">
-              <span class="chip">MVP</span>
-              <span class="chip">Web App</span>
-              <span class="chip">Dashboard</span>
-              <span class="chip">Produto em evolução</span>
+        <article class="work-card athlon-card reveal">
+          <div class="athlon-intro">
+            <div class="athlon-copy">
+              <span class="athlon-kicker">Produto real em evolução</span>
+              <h3>Plataforma web para atletas de endurance</h3>
+              <p>
+                Participo do desenvolvimento do MVP, atuando na implementação das interfaces,
+                responsividade e evolução dos fluxos usados para validar o produto.
+              </p>
+              <div class="chips">
+                <span class="chip">MVP</span>
+                <span class="chip">Web App</span>
+                <span class="chip">Dashboard</span>
+                <span class="chip">Responsividade</span>
+              </div>
             </div>
-            <a class="project-link" href="https://athlonai-web.vercel.app/" target="_blank" rel="noreferrer">Abrir projeto</a>
+
+            <a class="button primary athlon-cta" href="https://athlonai-web.vercel.app/" target="_blank" rel="noreferrer">
+              Conhecer o AthlonAI <span aria-hidden="true">↗</span>
+            </a>
           </div>
 
-          <div class="gallery" aria-label="Capturas de tela do AthlonAI">
-            <img src="assets/athlon-home.png" alt="Tela inicial do AthlonAI">
-            <img src="assets/athlon-panel.png" alt="Painel do AthlonAI">
-            <img src="assets/athlon-mobile.png" alt="Versão mobile do AthlonAI">
+          <div class="athlon-gallery" aria-label="Capturas de tela do AthlonAI">
+            <figure class="athlon-shot athlon-shot--home">
+              <a class="athlon-shot-link" href="assets/athlon-home.png" target="_blank" rel="noreferrer" aria-label="Abrir captura completa da página inicial do AthlonAI">
+                <div class="athlon-shot-bar">
+                  <span class="athlon-window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="athlon-shot-label">Página inicial — visão desktop</span>
+                  <span class="athlon-shot-hint">Abrir imagem ↗</span>
+                </div>
+                <div class="athlon-shot-canvas">
+                  <img src="assets/athlon-home.png" width="1440" height="960" loading="lazy" decoding="async" alt="Página inicial do AthlonAI em versão desktop">
+                </div>
+              </a>
+            </figure>
+
+            <figure class="athlon-shot athlon-shot--panel">
+              <a class="athlon-shot-link" href="assets/athlon-panel.png" target="_blank" rel="noreferrer" aria-label="Abrir captura completa do painel do AthlonAI">
+                <div class="athlon-shot-bar">
+                  <span class="athlon-window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="athlon-shot-label">Painel e proposta do produto</span>
+                  <span class="athlon-shot-hint">Abrir imagem ↗</span>
+                </div>
+                <div class="athlon-shot-canvas">
+                  <img src="assets/athlon-panel.png" width="1440" height="960" loading="lazy" decoding="async" alt="Painel e funcionalidades apresentadas no AthlonAI">
+                </div>
+              </a>
+            </figure>
+
+            <figure class="athlon-shot athlon-shot--mobile">
+              <a class="athlon-shot-link" href="assets/athlon-mobile.png" target="_blank" rel="noreferrer" aria-label="Abrir captura completa da versão mobile do AthlonAI">
+                <div class="athlon-shot-bar">
+                  <span class="athlon-window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="athlon-shot-label">Experiência mobile</span>
+                  <span class="athlon-shot-hint">Abrir imagem ↗</span>
+                </div>
+                <div class="athlon-shot-canvas athlon-phone-stage">
+                  <div class="athlon-phone">
+                    <img src="assets/athlon-mobile.png" width="780" height="1688" loading="lazy" decoding="async" alt="Página inicial do AthlonAI adaptada para celular">
+                  </div>
+                </div>
+              </a>
+            </figure>
           </div>
         </article>
       </div>
