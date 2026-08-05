@@ -1,1 +1,1408 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portfólio de Vinicius Fernandes, estudante de Desenvolvimento de Software Multiplataforma na FATEC Jacareí, com prática em web, APIs, mobile, dados, Scrum e desenvolvimento de MVP." />
+  <title>Vinicius Fernandes - Desenvolvedor de Software</title>
+  <style>
+    :root {
+      --bg: #040711;
+      --panel: rgba(10, 16, 30, 0.78);
+      --panel-solid: #0b1220;
+      --card: rgba(13, 21, 38, 0.84);
+      --ink: #f8fafc;
+      --muted: #aeb8ca;
+      --soft: #dbe6f6;
+      --line: rgba(255, 255, 255, 0.12);
+      --blue: #4f7cff;
+      --cyan: #28d4c7;
+      --violet: #8b5cf6;
+      --green: #38d996;
+      --orange: #fb923c;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 78% 8%, rgba(79, 124, 255, 0.22), transparent 34rem),
+        radial-gradient(circle at 15% 38%, rgba(40, 212, 199, 0.12), transparent 28rem),
+        linear-gradient(180deg, #040711 0%, #07101d 52%, #040711 100%);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 75%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: 16%;
+      left: -18%;
+      z-index: -1;
+      width: 220px;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.52), transparent);
+      opacity: 0;
+      transform: rotate(-18deg);
+      animation: comet 12s linear infinite;
+    }
+
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(4, 7, 17, 0.76);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 74px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #fff;
+      font-size: 0.82rem;
+      box-shadow: 0 12px 30px rgba(79, 124, 255, 0.28);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 800;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-links a {
+      border-radius: 999px;
+      padding: 8px 12px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--ink);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      padding: 0 18px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--ink);
+      font-weight: 900;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(40, 212, 199, 0.44);
+      background: rgba(40, 212, 199, 0.1);
+    }
+
+    .button.primary {
+      border: 0;
+      background: linear-gradient(135deg, var(--blue), var(--violet));
+      box-shadow: 0 18px 34px rgba(79, 124, 255, 0.26);
+    }
+
+    .hero {
+      padding: 78px 0 72px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
+      align-items: center;
+      gap: 62px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 18px;
+      border: 1px solid rgba(40, 212, 199, 0.2);
+      border-radius: 999px;
+      background: rgba(40, 212, 199, 0.08);
+      padding: 7px 12px;
+      color: #99f6e4;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(3.25rem, 7vw, 6rem);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .accent {
+      background: linear-gradient(135deg, #67e8f9, #7c8cff 55%, #c4b5fd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      max-width: 660px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 1.06rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-profile {
+      position: relative;
+      display: grid;
+      gap: 20px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 42%),
+        var(--panel);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      overflow: hidden;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .hero-profile:hover {
+      transform: translateY(-4px);
+      border-color: rgba(40, 212, 199, 0.26);
+    }
+
+    .hero-profile::before {
+      content: "";
+      position: absolute;
+      right: -70px;
+      top: -76px;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(40, 212, 199, 0.22), transparent 68%);
+      pointer-events: none;
+    }
+
+    .avatar-line {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar {
+      width: 112px;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 4px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      background: var(--panel-solid);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+      flex: 0 0 auto;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+    }
+
+    .avatar-line h2 {
+      font-size: 1.35rem;
+      line-height: 1.16;
+    }
+
+    .avatar-line p {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .profile-facts {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .fact {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.045);
+      padding: 13px;
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 0.92rem;
+    }
+
+    .fact span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .tech-strip {
+      position: relative;
+      z-index: 1;
+    }
+
+    .label {
+      color: #b7c3d8;
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .tech-icons,
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    .tech-icons span,
+    .chip {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.055);
+      padding: 7px 10px;
+      color: #dbeafe;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .section {
+      padding: 68px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      scroll-margin-top: 96px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      margin-top: 7px;
+      font-size: clamp(1.8rem, 4vw, 2.65rem);
+      line-height: 1.12;
+    }
+
+    .section-head p {
+      max-width: 560px;
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 22px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .panel:hover,
+    .stack-card:hover,
+    .project-card:hover,
+    .work-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(40, 212, 199, 0.28);
+    }
+
+    .panel p {
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.045);
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stack-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 22px;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .stack-card h3 {
+      font-size: 1.05rem;
+    }
+
+    .stack-card p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .panel p + p {
+      margin-top: 14px;
+    }
+
+    .carousel-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .carousel-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-button {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .projects {
+      display: grid;
+      grid-auto-columns: calc((100% - 48px) / 3);
+      grid-auto-flow: column;
+      gap: 24px;
+      overflow-x: auto;
+      padding: 6px 2px 18px;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .projects::-webkit-scrollbar {
+      display: none;
+    }
+
+    .project-card {
+      min-height: 430px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+      scroll-snap-align: start;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .project-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 86px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--tone) 24%, transparent), transparent),
+        rgba(255, 255, 255, 0.035);
+      padding: 18px;
+    }
+
+    .project-num {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .project-type {
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .project-body {
+      display: flex;
+      min-height: 344px;
+      flex-direction: column;
+      padding: 22px;
+    }
+
+    .project-body h3 {
+      font-size: 1.16rem;
+      line-height: 1.25;
+    }
+
+    .project-body p {
+      margin-top: 11px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .project-detail {
+      display: grid;
+      gap: 4px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .project-detail strong {
+      color: #99f6e4;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .project-detail span {
+      color: #d8e4f4;
+      font-size: 0.88rem;
+    }
+
+    .project-link {
+      margin-top: auto;
+      padding-top: 18px;
+      color: #93c5fd;
+      font-size: 0.9rem;
+      font-weight: 900;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.22);
+      cursor: pointer;
+    }
+
+    .dot.active {
+      width: 28px;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+    }
+
+    .work-card {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
+      gap: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .work-card p {
+      margin-top: 11px;
+      color: var(--muted);
+    }
+
+    .gallery {
+      display: grid;
+      grid-auto-columns: minmax(230px, 72%);
+      grid-auto-flow: column;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .gallery::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 260px;
+      object-fit: contain;
+      object-position: top center;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      background: rgba(4, 7, 17, 0.76);
+      scroll-snap-align: start;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(250px, 0.6fr);
+      gap: 18px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #dbeafe;
+      font-weight: 900;
+    }
+
+    .contact-link svg {
+      width: 18px;
+      height: 18px;
+      color: #93c5fd;
+    }
+
+    .contact-link.whatsapp svg {
+      color: #25d366;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 24px 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero .reveal {
+      animation: rise-in 680ms ease both;
+    }
+
+    .hero .reveal:nth-child(2) {
+      animation-delay: 110ms;
+    }
+
+    @keyframes rise-in {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes comet {
+      0%, 38% {
+        transform: translate3d(0, 0, 0) rotate(-18deg);
+        opacity: 0;
+      }
+
+      44% {
+        opacity: 0.42;
+      }
+
+      54%, 100% {
+        transform: translate3d(140vw, 28vh, 0) rotate(-18deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 940px) {
+      .nav-links {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .work-card,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-profile {
+        max-width: 560px;
+      }
+
+      .projects {
+        grid-auto-columns: calc((100% - 24px) / 2);
+      }
+
+      .stack-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      html {
+        scroll-padding-top: 82px;
+      }
+
+      .wrap {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav-row {
+        min-height: 68px;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+
+      .nav-links {
+        gap: 2px;
+        font-size: 0.82rem;
+      }
+
+      .nav-links a {
+        padding: 7px 9px;
+      }
+
+      .hero {
+        padding: 44px 0 54px;
+      }
+
+      h1 {
+        font-size: clamp(2.6rem, 15vw, 3.4rem);
+      }
+
+      .lead {
+        font-size: 0.98rem;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .hero-profile {
+        padding: 22px;
+      }
+
+      .avatar-line {
+        align-items: flex-start;
+      }
+
+      .avatar {
+        width: 86px;
+      }
+
+      .profile-facts,
+      .stats,
+      .stack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 52px 0;
+      }
+
+      .section-head,
+      .carousel-head {
+        display: grid;
+      }
+
+      .projects {
+        grid-auto-columns: 100%;
+      }
+
+      .gallery {
+        grid-auto-columns: 88%;
+      }
+
+      .gallery img {
+        height: 210px;
+      }
+
+      footer .wrap {
+        display: grid;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <nav class="nav">
+    <div class="wrap nav-row">
+      <a class="brand" href="#inicio" aria-label="Ir para o início">
+        <span class="brand-mark">VF</span>
+        <span>Vinicius Fernandes</span>
+      </a>
+
+      <div class="nav-links" aria-label="Navegação principal">
+        <a class="active" href="#inicio">Início</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#tecnologias">Conhecimentos</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#experiencias">Experiência</a>
+        <a href="#contato">Contato</a>
+      </div>
+    </div>
+  </nav>
+
+  <header id="inicio" class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">Desenvolvedor de software em formação</span>
+        <h1>Vinicius <span class="accent">Fernandes</span></h1>
+        <p class="lead">
+          Sou aluno de Desenvolvimento de Software Multiplataforma na FATEC Jacareí e venho praticando
+          desenvolvimento web, APIs, mobile e dados em projetos acadêmicos, estudos próprios e experiências
+          fora da sala de aula. Meu objetivo é evoluir como desenvolvedor full stack, com código organizado
+          e interfaces simples de usar.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#tecnologias">Ver conhecimentos</a>
+          <a class="button" href="#projetos">Projetos</a>
+          <a class="button" href="output/pdf/curriculo-vinicius-barbosa-fernandes.pdf" target="_blank" rel="noreferrer">Currículo</a>
+          <a class="button" href="https://github.com/Viniciusfernandes2" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+
+      <aside class="hero-profile reveal" aria-label="Resumo profissional">
+        <div class="avatar-line">
+          <div class="avatar">
+            <img src="assets/vinicius-avatar.jpg" alt="Foto de Vinicius Fernandes">
+          </div>
+          <div>
+            <h2>Desenvolvedor full stack em formação</h2>
+            <p>DSM na FATEC Jacareí, aberto a estágio, projetos e novas experiências.</p>
+          </div>
+        </div>
+
+        <div class="profile-facts">
+          <div class="fact"><strong>DSM</strong><span>FATEC Jacareí</span></div>
+          <div class="fact"><strong>Scrum</strong><span>sprints e backlog</span></div>
+          <div class="fact"><strong>Full stack</strong><span>web, APIs e dados</span></div>
+          <div class="fact"><strong>MVP</strong><span>AthlonAI</span></div>
+        </div>
+
+        <div class="tech-strip">
+          <p class="label">Stack em evolução</p>
+          <div class="tech-icons">
+            <span>TypeScript</span>
+            <span>React</span>
+            <span>Node.js</span>
+            <span>React Native</span>
+            <span>MongoDB</span>
+            <span>Docker</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="sobre" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Sobre mim</span>
+            <h2>Do requisito à entrega.</h2>
+          </div>
+          <p>Tenho buscado crescer juntando prática técnica, organização e atenção ao problema que precisa ser resolvido.</p>
+        </div>
+
+        <div class="about-grid">
+          <article class="panel reveal">
+            <p>
+              Curso Desenvolvimento de Software Multiplataforma na FATEC Jacareí. Venho construindo
+              minha base com projetos de semestre, estudos práticos e participação no desenvolvimento
+              do MVP do AthlonAI.
+            </p>
+            <p>
+              Nos projetos da faculdade, trabalhei em equipe com Scrum, backlog, sprints, documentação
+              e entregas incrementais. Essa rotina me ajudou a melhorar comunicação, organização e
+              cuidado com o que está sendo entregue.
+            </p>
+          </article>
+
+          <div class="stats reveal">
+            <div class="stat"><strong>Web</strong><span>interfaces, dashboards e formulários</span></div>
+            <div class="stat"><strong>APIs</strong><span>Node.js, Express e integrações</span></div>
+            <div class="stat"><strong>Mobile</strong><span>React Native, Expo e IoT</span></div>
+            <div class="stat"><strong>Scrum</strong><span>backlog, sprint e retrospectiva</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tecnologias" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Conhecimentos</span>
+            <h2>O que venho praticando.</h2>
+          </div>
+          <p>Separei por áreas para mostrar melhor onde já tive contato e o que venho fortalecendo.</p>
+        </div>
+
+        <div class="stack-grid">
+          <article class="stack-card reveal">
+            <h3>Front-end</h3>
+            <p>Construção de interfaces responsivas, componentes reutilizáveis, telas de dashboard e fluxos de uso.</p>
+            <div class="chips">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">React</span>
+              <span class="chip">Vite</span>
+            </div>
+          </article>
+          <article class="stack-card reveal">
+            <h3>Back-end e APIs</h3>
+            <p>Criação de rotas, autenticação, regras de negócio e integração entre front-end, banco e serviços externos.</p>
+            <div class="chips">
+              <span class="chip">Node.js</span>
+              <span class="chip">Express</span>
+              <span class="chip">JWT</span>
+              <span class="chip">Swagger</span>
+              <span class="chip">REST</span>
+            </div>
+          </article>
+          <article class="stack-card reveal">
+            <h3>Dados</h3>
+            <p>Modelagem simples, persistência, consultas, exportação de dados e apoio a telas com gráficos e análises.</p>
+            <div class="chips">
+              <span class="chip">PostgreSQL</span>
+              <span class="chip">MongoDB</span>
+              <span class="chip">Mongoose</span>
+              <span class="chip">Supabase</span>
+              <span class="chip">CSV</span>
+            </div>
+          </article>
+          <article class="stack-card reveal">
+            <h3>Mobile e IoT</h3>
+            <p>Experiência com aplicativos móveis, localização, mapas e integração com solução física em contexto acadêmico.</p>
+            <div class="chips">
+              <span class="chip">React Native</span>
+              <span class="chip">Expo</span>
+              <span class="chip">Maps</span>
+              <span class="chip">Location</span>
+              <span class="chip">C++</span>
+            </div>
+          </article>
+          <article class="stack-card reveal">
+            <h3>IA e automação</h3>
+            <p>Contato com chatbot, processamento de linguagem, integração com WhatsApp e uso de IA generativa em produto.</p>
+            <div class="chips">
+              <span class="chip">Gemini</span>
+              <span class="chip">RAG</span>
+              <span class="chip">NLP</span>
+              <span class="chip">WhatsApp</span>
+            </div>
+          </article>
+          <article class="stack-card reveal">
+            <h3>Entrega e colaboração</h3>
+            <p>Organização de tarefas, versionamento, documentação, testes e deploy em ciclos curtos de desenvolvimento.</p>
+            <div class="chips">
+              <span class="chip">Scrum</span>
+              <span class="chip">Git</span>
+              <span class="chip">Figma</span>
+              <span class="chip">Docker</span>
+              <span class="chip">Vitest</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projetos" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Projetos acadêmicos</span>
+            <h2>ABPs como prática de semestre.</h2>
+          </div>
+          <p>Na FATEC, os ABPs são atividades acadêmicas desenvolvidas ao longo do semestre e apresentadas no encerramento. Aqui eles aparecem como registro do que pratiquei: equipe, Scrum, documentação e entrega.</p>
+        </div>
+
+        <div class="carousel-head reveal">
+          <p class="label">Histórico por semestre</p>
+          <div class="carousel-controls" aria-label="Controles do carrossel">
+            <button class="icon-button" type="button" data-prev aria-label="Projeto anterior">&lt;</button>
+            <button class="icon-button" type="button" data-next aria-label="Próximo projeto">&gt;</button>
+          </div>
+        </div>
+
+        <div class="projects reveal" data-carousel>
+          <article class="project-card" style="--tone: #8b5cf6;">
+            <div class="project-top"><span class="project-num">01</span><span class="project-type">1DSM</span></div>
+            <div class="project-body">
+              <h3>WebWizardsPro</h3>
+              <p>Aplicação web criada no início da graduação, com foco em fundamentos de front-end e organização de projeto ágil.</p>
+              <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Scrum</span></div>
+              <div class="project-detail"><strong>Atuação</strong><span>Participei do desenvolvimento em equipe e das entregas acadêmicas do semestre.</span></div>
+              <a class="project-link" href="https://github.com/cGuilhermec/WebWizardsPro" target="_blank" rel="noreferrer">Ver repositório</a>
+            </div>
+          </article>
+
+          <article class="project-card" style="--tone: #38bdf8;">
+            <div class="project-top"><span class="project-num">02</span><span class="project-type">2DSM</span></div>
+            <div class="project-body">
+              <h3>WebWizardsPro Visiona</h3>
+              <p>Solução web em equipe, evoluindo a base técnica para React, TypeScript, API e banco relacional.</p>
+              <div class="chips"><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Express</span><span class="chip">PostgreSQL</span></div>
+              <div class="project-detail"><strong>Atuação</strong><span>Participei do desenvolvimento e da evolução da solução ao longo das sprints.</span></div>
+              <a class="project-link" href="https://github.com/filipejonatas/WebWizardsPro-Visona" target="_blank" rel="noreferrer">Ver repositório</a>
+            </div>
+          </article>
+
+          <article class="project-card" style="--tone: #14b8a6;">
+            <div class="project-top"><span class="project-num">03</span><span class="project-type">3DSM</span></div>
+            <div class="project-body">
+              <h3>Zen-Tech</h3>
+              <p>Plataforma para acompanhamento de dados meteorológicos, com gráficos, comparações entre estações e alertas.</p>
+              <div class="chips"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">MongoDB</span><span class="chip">Gráficos</span></div>
+              <div class="project-detail"><strong>Atuação</strong><span>Participei da construção da plataforma e da evolução das funcionalidades em equipe.</span></div>
+              <a class="project-link" href="https://github.com/Viniciusfernandes2/Zen-Tech-ABP3" target="_blank" rel="noreferrer">Ver repositório</a>
+            </div>
+          </article>
+
+          <article class="project-card" style="--tone: #22c55e;">
+            <div class="project-top"><span class="project-num">04</span><span class="project-type">4DSM</span></div>
+            <div class="project-body">
+              <h3>Bio Alert</h3>
+              <p>Solução com foco em segurança e resposta rápida, integrando detecção de quedas, aplicativo e alertas de emergência.</p>
+              <div class="chips"><span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">Supabase</span><span class="chip">IoT</span></div>
+              <div class="project-detail"><strong>Atuação</strong><span>Participei do desenvolvimento em equipe e da integração da solução.</span></div>
+              <a class="project-link" href="https://github.com/Viniciusfernandes2/Zen-Tech-ABP4" target="_blank" rel="noreferrer">Ver repositório</a>
+            </div>
+          </article>
+
+          <article class="project-card" style="--tone: #64748b;">
+            <div class="project-top"><span class="project-num">05</span><span class="project-type">5DSM</span></div>
+            <div class="project-body">
+              <h3>Em desenvolvimento</h3>
+              <p>Projeto do semestre atual. Esta área será atualizada conforme o tema, as entregas e o repositório forem definidos.</p>
+              <div class="chips"><span class="chip">Semestre atual</span><span class="chip">Em breve</span></div>
+              <div class="project-detail"><strong>Status</strong><span>Projeto em andamento neste semestre.</span></div>
+              <span class="project-link">Repositório em breve</span>
+            </div>
+          </article>
+
+          <article class="project-card" style="--tone: #fb923c;">
+            <div class="project-top"><span class="project-num">06</span><span class="project-type">6DSM</span></div>
+            <div class="project-body">
+              <h3>ProconBot Jacareí</h3>
+              <p>Chatbot para orientação inicial sobre direitos do consumidor, com WhatsApp, painel web, API e apoio de IA generativa.</p>
+              <div class="chips"><span class="chip">TypeScript</span><span class="chip">MongoDB</span><span class="chip">RAG</span><span class="chip">Docker</span></div>
+              <div class="project-detail"><strong>Atuação</strong><span>Participei do desenvolvimento da solução durante o semestre, seguindo o fluxo Scrum da equipe.</span></div>
+              <a class="project-link" href="https://github.com/innocode-solutions/abp_6dsm" target="_blank" rel="noreferrer">Ver repositório</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="dots" data-dots aria-label="Indicadores do carrossel"></div>
+      </div>
+    </section>
+
+    <section id="experiencias" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Experiência prática</span>
+            <h2>AthlonAI: MVP em desenvolvimento</h2>
+          </div>
+          <p>Um produto ainda em evolução para produção, que me trouxe contato com uma demanda fora do ambiente acadêmico.</p>
+        </div>
+
+        <article class="work-card reveal">
+          <div>
+            <h3>Plataforma web para atletas de endurance</h3>
+            <p>
+              Participei do desenvolvimento do MVP do AthlonAI, uma plataforma voltada a atletas de
+              endurance. O professor Alvaro trouxe a arquitetura, coordenação e orientação do produto;
+              minha atuação foi na implementação da interface e nos ajustes técnicos necessários para
+              validar a primeira versão.
+            </p>
+            <div class="chips">
+              <span class="chip">MVP</span>
+              <span class="chip">Web App</span>
+              <span class="chip">Dashboard</span>
+              <span class="chip">Produto em evolução</span>
+            </div>
+            <a class="project-link" href="https://athlonai-web.vercel.app/" target="_blank" rel="noreferrer">Abrir projeto</a>
+          </div>
+
+          <div class="gallery" aria-label="Capturas de tela do AthlonAI">
+            <img src="assets/athlon-home.png" alt="Tela inicial do AthlonAI">
+            <img src="assets/athlon-panel.png" alt="Painel do AthlonAI">
+            <img src="assets/athlon-mobile.png" alt="Versão mobile do AthlonAI">
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contato" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Contato</span>
+            <h2>Vamos conversar?</h2>
+          </div>
+          <p>Estou aberto a oportunidades de estágio e projetos onde eu possa aprender, contribuir e ganhar mais ritmo profissional.</p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="panel reveal">
+            <h3>Disponibilidade</h3>
+            <p>Busco uma oportunidade para aprender com o time, participar de tarefas de desenvolvimento e crescer com responsabilidade.</p>
+          </article>
+
+          <article class="panel reveal">
+            <ul class="contact-list">
+              <li>
+                <a class="contact-link" href="mailto:vinicius.fernandes11.vf@gmail.com">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+                  vinicius.fernandes11.vf@gmail.com
+                </a>
+              </li>
+              <li>
+                <a class="contact-link whatsapp" href="https://wa.me/5512987084206" target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.34 4.95L2 22l5.28-1.39a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.44 9.91-9.9C21.96 6.45 17.51 2 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.13.82.84-3.05-.2-.31a8.17 8.17 0 1 1 6.98 3.86Zm4.48-6.11c-.25-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.25-.63.8-.77.97-.14.16-.28.18-.52.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.22-1.45-1.36-1.7-.14-.25-.02-.38.11-.5.11-.11.25-.28.37-.42.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.55-1.33-.75-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.65.31-.22.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.16 1.73 2.64 4.19 3.7.59.25 1.04.4 1.4.51.59.19 1.12.16 1.54.1.47-.07 1.45-.59 1.66-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.47-.28Z"/></svg>
+                  WhatsApp: (12) 98708-4206
+                </a>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>&copy; <span id="year"></span> Vinicius Fernandes.</span>
+      <span>Desenvolvimento de Software Multiplataforma - FATEC Jacareí</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const canvas = document.getElementById("starfield");
+    const context = canvas.getContext("2d");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let stars = [];
+    let width = 0;
+    let height = 0;
+    let animationFrame = 0;
+    let activeNavId = "inicio";
+
+    function resizeStars() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      const amount = Math.round(Math.min(160, Math.max(70, width * height / 9000)));
+      stars = Array.from({ length: amount }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 1.45 + 0.25,
+        alpha: Math.random() * 0.55 + 0.2,
+        speed: Math.random() * 0.18 + 0.04
+      }));
+    }
+
+    function drawStars() {
+      context.clearRect(0, 0, width, height);
+
+      const gradient = context.createRadialGradient(width * 0.74, height * 0.18, 0, width * 0.74, height * 0.18, Math.max(width, height) * 0.55);
+      gradient.addColorStop(0, "rgba(79, 124, 255, 0.14)");
+      gradient.addColorStop(0.45, "rgba(40, 212, 199, 0.05)");
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+      context.fillStyle = gradient;
+      context.fillRect(0, 0, width, height);
+
+      stars.forEach((star) => {
+        context.beginPath();
+        context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        context.fillStyle = `rgba(226, 241, 255, ${star.alpha})`;
+        context.fill();
+
+        if (!reducedMotion) {
+          star.y += star.speed;
+          star.x += star.speed * 0.16;
+          if (star.y > height + 4) {
+            star.y = -4;
+            star.x = Math.random() * width;
+          }
+        }
+      });
+
+      if (!reducedMotion) {
+        animationFrame = requestAnimationFrame(drawStars);
+      }
+    }
+
+    resizeStars();
+    drawStars();
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(animationFrame);
+      resizeStars();
+      drawStars();
+    });
+
+    const sections = document.querySelectorAll("section[id], header[id]");
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    function updateActiveLink() {
+      let current = "inicio";
+      const marker = Math.min(window.innerHeight * 0.42, 360);
+      sections.forEach((section) => {
+        if (section.getBoundingClientRect().top <= marker) {
+          current = section.id;
+        }
+      });
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+      });
+      if (current !== activeNavId) {
+        activeNavId = current;
+        document.querySelector(`.nav-links a[href="#${current}"]`)?.scrollIntoView({
+          behavior: reducedMotion ? "auto" : "smooth",
+          block: "nearest",
+          inline: "center"
+        });
+      }
+    }
+
+    window.addEventListener("scroll", updateActiveLink, { passive: true });
+    updateActiveLink();
+    function scrollToCurrentHash() {
+      if (!window.location.hash) return;
+      const target = document.querySelector(window.location.hash);
+      if (!target) return;
+      target.scrollIntoView({ behavior: "auto", block: "start" });
+      updateActiveLink();
+    }
+
+    if (window.location.hash) {
+      window.setTimeout(scrollToCurrentHash, 80);
+    }
+
+    const carousel = document.querySelector("[data-carousel]");
+    const cards = carousel ? Array.from(carousel.querySelectorAll(".project-card")) : [];
+    const next = document.querySelector("[data-next]");
+    const prev = document.querySelector("[data-prev]");
+    const dots = document.querySelector("[data-dots]");
+    let active = 0;
+
+    function updateDots() {
+      dots?.querySelectorAll("button").forEach((dot, index) => {
+        dot.classList.toggle("active", index === active);
+      });
+    }
+
+    function goToProject(index) {
+      if (!carousel || !cards.length) return;
+      active = (index + cards.length) % cards.length;
+      cards[active].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+      updateDots();
+    }
+
+    cards.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "dot";
+      dot.setAttribute("aria-label", `Ir para projeto ${index + 1}`);
+      dot.addEventListener("click", () => goToProject(index));
+      dots?.appendChild(dot);
+    });
+    updateDots();
+
+    next?.addEventListener("click", () => goToProject(active + 1));
+    prev?.addEventListener("click", () => goToProject(active - 1));
+
+    carousel?.addEventListener("scroll", () => {
+      const card = cards[0];
+      if (!card) return;
+      active = Math.round(carousel.scrollLeft / (card.offsetWidth + 24));
+      active = Math.max(0, Math.min(cards.length - 1, active));
+      updateDots();
+    }, { passive: true });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+  </script>
+</body>
+</html>
 
