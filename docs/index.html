@@ -626,14 +626,31 @@
 
     .work-card {
       display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
-      gap: 24px;
+      grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+      align-items: stretch;
+      gap: 28px;
+      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--card);
       box-shadow: var(--shadow);
-      padding: 24px;
+      padding: 26px;
       transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .work-card > * {
+      min-width: 0;
+    }
+
+    .work-card > div:first-child {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .work-card h3 {
+      font-size: 1.28rem;
+      line-height: 1.25;
     }
 
     .work-card p {
@@ -641,31 +658,59 @@
       color: var(--muted);
     }
 
-    .gallery {
-      display: grid;
-      grid-auto-columns: minmax(230px, 72%);
-      grid-auto-flow: column;
-      gap: 12px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+    .work-card .project-link {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 22px;
+      border: 1px solid rgba(147, 197, 253, 0.22);
+      border-radius: 10px;
+      background: rgba(147, 197, 253, 0.07);
+      padding: 10px 14px;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
     }
 
-    .gallery::-webkit-scrollbar {
-      display: none;
+    .work-card .project-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(40, 212, 199, 0.42);
+      background: rgba(40, 212, 199, 0.09);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(170px, 0.65fr);
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      min-height: 390px;
+      overflow: hidden;
+      border-radius: 14px;
     }
 
     .gallery img {
       width: 100%;
-      height: 260px;
-      object-fit: contain;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      object-fit: cover;
       object-position: top center;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 12px;
-      background: rgba(4, 7, 17, 0.76);
-      scroll-snap-align: start;
+      background: #050914;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .gallery img:first-child {
+      grid-row: 1 / -1;
+    }
+
+    .gallery img:nth-child(3) {
+      object-fit: contain;
+      padding: 8px;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.012);
+      border-color: rgba(40, 212, 199, 0.34);
     }
 
     .contact-grid {
@@ -775,6 +820,10 @@
         max-width: 560px;
       }
 
+      .gallery {
+        min-height: 430px;
+      }
+
       .projects {
         grid-auto-columns: calc((100% - 24px) / 2);
       }
@@ -857,12 +906,27 @@
         grid-auto-columns: 100%;
       }
 
-      .gallery {
-        grid-auto-columns: 88%;
+      .work-card {
+        gap: 22px;
+        padding: 18px;
       }
 
-      .gallery img {
-        height: 210px;
+      .gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+        min-height: 0;
+        overflow: visible;
+      }
+
+      .gallery img,
+      .gallery img:first-child {
+        grid-row: auto;
+        height: auto;
+        aspect-ratio: 16 / 10;
+      }
+
+      .gallery img:nth-child(3) {
+        object-fit: contain;
       }
 
       footer .wrap {
@@ -1315,29 +1379,56 @@
 
     const sections = document.querySelectorAll("section[id], header[id]");
     const navLinks = document.querySelectorAll(".nav-links a");
+    const navContainer = document.querySelector(".nav-links");
+    let pageScrollTicking = false;
+
+    function centerActiveNavLink(link) {
+      if (!navContainer || !link || navContainer.scrollWidth <= navContainer.clientWidth) return;
+
+      const targetLeft =
+        link.offsetLeft -
+        navContainer.clientWidth / 2 +
+        link.clientWidth / 2;
+
+      navContainer.scrollTo({
+        left: Math.max(0, targetLeft),
+        behavior: reducedMotion ? "auto" : "smooth"
+      });
+    }
 
     function updateActiveLink() {
       let current = "inicio";
       const marker = Math.min(window.innerHeight * 0.42, 360);
+      let activeLink = null;
+
       sections.forEach((section) => {
         if (section.getBoundingClientRect().top <= marker) {
           current = section.id;
         }
       });
+
       navLinks.forEach((link) => {
-        link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+        const isActive = link.getAttribute("href") === `#${current}`;
+        link.classList.toggle("active", isActive);
+        if (isActive) activeLink = link;
       });
+
       if (current !== activeNavId) {
         activeNavId = current;
-        document.querySelector(`.nav-links a[href="#${current}"]`)?.scrollIntoView({
-          behavior: reducedMotion ? "auto" : "smooth",
-          block: "nearest",
-          inline: "center"
-        });
+        centerActiveNavLink(activeLink);
       }
     }
 
-    window.addEventListener("scroll", updateActiveLink, { passive: true });
+    window.addEventListener("scroll", () => {
+      if (pageScrollTicking) return;
+      pageScrollTicking = true;
+
+      window.requestAnimationFrame(() => {
+        updateActiveLink();
+        pageScrollTicking = false;
+      });
+    }, { passive: true });
+
     updateActiveLink();
     function scrollToCurrentHash() {
       if (!window.location.hash) return;
@@ -1366,8 +1457,19 @@
 
     function goToProject(index) {
       if (!carousel || !cards.length) return;
+
       active = (index + cards.length) % cards.length;
-      cards[active].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+      const targetCard = cards[active];
+      const targetLeft =
+        targetCard.getBoundingClientRect().left -
+        carousel.getBoundingClientRect().left +
+        carousel.scrollLeft;
+
+      carousel.scrollTo({
+        left: targetLeft,
+        behavior: reducedMotion ? "auto" : "smooth"
+      });
+
       updateDots();
     }
 
@@ -1405,4 +1507,3 @@
   </script>
 </body>
 </html>
-
